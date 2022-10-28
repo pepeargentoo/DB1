@@ -237,3 +237,93 @@ VALUES('Ciencia ficción','El exterminador',1,1);
 
 INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado)
 VALUES('Drama','Mente indomable',1,1);
+
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','17:00:00',8,3);
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','19:00:00',4,2);
+  
+
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','19:00:00',2,3);
+  
+insert into funciones(
+	Fecha,
+	Horario,
+	Id_Sala,
+	Id_Pelicula) values ('2022-10-24','23:00:00',2,4);
+  
+select * from funciones
+select * from peliculas
+/*A*/
+select count(*) from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+where sucursales.Localidad = 'La plata';
+/*B*/
+select peliculas.Nombre from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+where sucursales.Localidad = 'Córdoba' AND funciones.Fecha = '2022-10-24';
+/*C*/
+
+select funciones.Horario from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+where sucursales.Localidad = 'Rosario' AND funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985';
+
+/*D*/
+select funciones.Horario as horario, sucursales.Localidad as sucursal from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+where funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985'
+order by funciones.Horario;
+
+/*E*/
+select distinct peliculas.Nombre as pelicula, funciones.Fecha, funciones.Horario from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+where funciones.Fecha >= '2022-10-24' AND funciones.Fecha <= '2022-10-30' AND peliculas.Genero = 'ciencia ficción';
+
+/*F INCOMPLETO*/
+select distinct butacas.Nro as butacas from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+inner join butacas on butacas.Id_Salas = salas.Id
+inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
+where sucursales.Localidad='Córdoba' AND funciones.Id = 10 AND peliculas.Nombre= 'Argentina, 1985';
