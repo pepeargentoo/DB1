@@ -296,15 +296,29 @@ inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where funciones.Fecha >= '2022-10-24' AND funciones.Fecha <= '2022-10-30' AND peliculas.Genero = 'ciencia ficción';
 /*F*/
-select distinct butacas.Nro as 'Butacas vendidas de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985'  from funciones
+select butacas.Nro as 'Butacas vendidas de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985'  from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 inner join butacas on butacas.Id_Salas = salas.Id
 inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
 where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985';
-/*G*/
-
+/*G
+Lo que hice fue poner el mismo select del 4f dentro del where del 4g, haciendo que muestre las butacas que no estan (not in) en el select del 4f*/
+select butacas.Nro as 'Butacas libres de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985' from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+inner join butacas on butacas.Id_Salas = salas.Id
+where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985' AND butacas.Nro not in (
+  select butacas.Nro as 'Butacas vendidas de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985'  from funciones
+  inner join salas on salas.Id = funciones.Id_Sala
+  inner join sucursales on sucursales.Id = salas.Id_Sucursal
+  inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+  inner join butacas on butacas.Id_Salas = salas.Id
+  inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
+  where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985'
+)
 /*H*/
 
 /*
