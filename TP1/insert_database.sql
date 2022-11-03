@@ -257,61 +257,75 @@ insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (3.10,12345678,3,1);
 insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,1245678,4,2);
 insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (3.10,12345678,5,1);
 insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,1245678,6,2);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,38126423,16,61);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,43523754,16,62);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,23126413,16,63);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,41735423,16,72);
 /*
 select * from funciones
 select * from peliculas
 */
 /*A*/
-select count(*) from funciones
+select count(*) as 'Cantidad de Funciones de sucursal de La Plata' from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 where sucursales.Localidad = 'La plata';
 /*B*/
-select peliculas.Nombre from funciones
+select peliculas.Nombre as 'Películas en cartelera, sucursal de Córdoba, 24 de octubre' from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where sucursales.Localidad = 'Córdoba' AND funciones.Fecha = '2022-10-24';
-/*C*/
-select funciones.Horario from funciones
+/*C Averiguar si con "horarios disponibles" se refieren a filtrar tambien por funciones con butacas libres, por ejemplo, en la realidad no seria una funcion disponible si ya no hay butacas libres*/
+select funciones.Horario as 'Horarios disponibles para ver Argentina, 1985 el dia 24 de octubre en Rosario' from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where sucursales.Localidad = 'Rosario' AND funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985';
 /*D*/
-select funciones.Horario as horario, sucursales.Localidad as sucursal from funciones
+select funciones.Horario as 'Horarios disponibles para ver Argentina, 1985 el dia 24 de octubre', sucursales.Localidad as Sucursal from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985'
 order by funciones.Horario;
 /*E*/
-select distinct peliculas.Nombre as pelicula, funciones.Fecha, funciones.Horario from funciones
+select distinct peliculas.Nombre as 'Peliculas de ciencia ficción en Rosario', funciones.Fecha, funciones.Horario from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where funciones.Fecha >= '2022-10-24' AND funciones.Fecha <= '2022-10-30' AND peliculas.Genero = 'ciencia ficción';
-/*F INCOMPLETO*/
-
-/*
- * id= 3 
- * id= 7
- * */
-select * from butacas
-inner join salas on salas.id = butacas.id_salas
-inner join sucursales on sucursales.id = salas.id_sucursal
-
-select * from funciones;
-
-select distinct butacas.Nro as butacas from funciones
+/*F*/
+select butacas.Nro as 'Butacas vendidas de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985'  from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
-
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 inner join butacas on butacas.Id_Salas = salas.Id
 inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
-where sucursales.Localidad='Córdoba' AND funciones.Id = 10 AND peliculas.Nombre= 'Argentina, 1985';
-
+where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985';
+/*G
+Lo que hice fue poner el mismo select del 4f dentro del where del 4g, haciendo que muestre las butacas que no estan (not in) en el select del 4f*/
+select butacas.Nro as 'Butacas libres de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985' from funciones
+inner join salas on salas.Id = funciones.Id_Sala
+inner join sucursales on sucursales.Id = salas.Id_Sucursal
+inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+inner join butacas on butacas.Id_Salas = salas.Id
+where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985' AND butacas.Nro not in (
+  select butacas.Nro as 'Butacas vendidas de la funcion 16, sucursal de Córdoba, pelicula Argentina, 1985'  from funciones
+  inner join salas on salas.Id = funciones.Id_Sala
+  inner join sucursales on sucursales.Id = salas.Id_Sucursal
+  inner join peliculas on peliculas.Id = funciones.Id_Pelicula
+  inner join butacas on butacas.Id_Salas = salas.Id
+  inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
+  where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985'
+)
+/*H
+aca hice un select para conseguir los ids de las peliculas de todas las funciones, luego consigo la cantidad de peliculas por genero y el genero 
+usando esos ids que consegui antes*/
+select peliculas.Genero, COUNT(peliculas.Genero) as 'Cantidad de peliculas' 
+from peliculas 
+where peliculas.Id in (select distinct Id_Pelicula from funciones)
+group by peliculas.Genero
 /*
  * 
  * 5. Suponga que, una vez creada la base de datos, se pide hacer una pequeña modificación para
