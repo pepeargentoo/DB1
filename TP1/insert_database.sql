@@ -223,68 +223,44 @@ INSERT INTO butacas(Nro,Id_Salas)VALUES (20,9);
  * ejemplo: 
  * https://es.wikipedia.org/wiki/The_Terminator#:~:text=The%20Terminator%20(conocida%20en%20algunos,Linda%20Hamilton%20y%20Michael%20Biehn.
  * */
-INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado)
-VALUES('ciencia ficción','Volver al futuro',1,1);
+INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado) VALUES('ciencia ficción','Volver al futuro',1,1);
+INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado) VALUES('Comedia','Esperando la carroza',1,0);
+INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado) VALUES('Drama','Argentina, 1985',1,0);
+INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado) VALUES('Ciencia ficción','El exterminador',1,1);
+INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado) VALUES('Drama','Mente indomable',1,1);
 
-INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado)
-VALUES('Comedia','Esperando la carroza',1,0);
-
-INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado)
-VALUES('Drama','Argentina, 1985',1,0);
-
-INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado)
-VALUES('Ciencia ficción','El exterminador',1,1);
-
-INSERT INTO peliculas(Genero,Nombre,ATP,Subtitulado)
-VALUES('Drama','Mente indomable',1,1);
-
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','17:00:00',8,3);
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
-
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','19:00:00',4,2);
-  
-
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','19:00:00',2,3);
-  
-insert into funciones(
-	Fecha,
-	Horario,
-	Id_Sala,
-	Id_Pelicula) values ('2022-10-24','23:00:00',2,4);
-  
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','17:00:00',8,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',8,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','19:00:00',4,2);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','19:00:00',2,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','23:00:00',2,4);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',4,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',5,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',6,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',7,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',9,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',10,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',11,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',4,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',5,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',6,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',7,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',9,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',10,3);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',11,3);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (3.10,12345678,1,1);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,1245678,2,2);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (3.10,12345678,3,1);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,1245678,4,2);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (3.10,12345678,5,1);
+insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,1245678,6,2);
+/*
 select * from funciones
 select * from peliculas
+*/
 /*A*/
 select count(*) from funciones
 inner join salas on salas.Id = funciones.Id_Sala
@@ -297,13 +273,11 @@ inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where sucursales.Localidad = 'Córdoba' AND funciones.Fecha = '2022-10-24';
 /*C*/
-
 select funciones.Horario from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where sucursales.Localidad = 'Rosario' AND funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985';
-
 /*D*/
 select funciones.Horario as horario, sucursales.Localidad as sucursal from funciones
 inner join salas on salas.Id = funciones.Id_Sala
@@ -311,19 +285,80 @@ inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985'
 order by funciones.Horario;
-
 /*E*/
 select distinct peliculas.Nombre as pelicula, funciones.Fecha, funciones.Horario from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where funciones.Fecha >= '2022-10-24' AND funciones.Fecha <= '2022-10-30' AND peliculas.Genero = 'ciencia ficción';
-
 /*F INCOMPLETO*/
+
+/*
+ * id= 3 
+ * id= 7
+ * */
+select * from butacas
+inner join salas on salas.id = butacas.id_salas
+inner join sucursales on sucursales.id = salas.id_sucursal
+
+select * from funciones;
+
 select distinct butacas.Nro as butacas from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
+
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 inner join butacas on butacas.Id_Salas = salas.Id
 inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
 where sucursales.Localidad='Córdoba' AND funciones.Id = 10 AND peliculas.Nombre= 'Argentina, 1985';
+
+/*
+ * 
+ * 5. Suponga que, una vez creada la base de datos, se pide hacer una pequeña modificación para
+poder guardar información respecto al precio de las entradas. Determine qué alteraciones serı́a
+conveniente realizar en las tablas en los siguientes casos, justificando la respuesta:
+a. El precio de la entrada depende únicamente de la sucursal.
+b. El precio de la entrada depende únicamente de la pelı́cula.
+c. El preico de la entrada depende únicamente de la ubicación de la butaca.
+ * https://estradawebgroup.com/Post/-Como-agregar-una-columna-a-una-tabla-en-SQL-/4166
+ * */
+/*A
+borro precio de compras y agrego precio en sucursal
+*/
+ALTER TABLE compras DROP COLUMN precio;
+ALTER TABLE sucursales ADD Precio REAL;
+select * from sucursales;
+/*B
+ * borro precio en sucursal, y agrego precio en pelicula
+ * */
+ALTER TABLE sucursales DROP COLUMN precio;
+ALTER TABLE peliculas ADD Precio REAL;
+select * from peliculas;
+/*C
+ * borro precio en pelicula, y agrego precio a butaca
+ * */
+ALTER TABLE peliculas DROP COLUMN precio;
+ALTER TABLE butacas ADD Precio REAL;
+select * from butacas;
+
+/*6)
+ *PRECIO POR PELICULA */
+ALTER TABLE butacas DROP COLUMN precio;
+ALTER TABLE peliculas ADD Precio REAL;
+/*UPDATE PELICULAS PRECIO, CREATE RECORDS :)
+ * */
+select sum(peliculas.Precio) as recuadacion from funciones
+inner join peliculas on peliculas.id = funciones.id_pelicula;
+
+/*Determine el promedio recaudado por función para cada pelı́cula. Es decir, si la pelı́cula
+Argentina, 1985 tuvo dos funciones, y en una recaudó 1000 pesos, y en la otra recaudó
+3000 pesos, el promedio recaudado por función para esta pelı́cula es 2000 pesos.
+ * */
+select avg(peliculas.Precio)
+from funciones
+inner join peliculas on peliculas.id = funciones.id_pelicula;
+
+
+
+
+
