@@ -262,7 +262,7 @@ select * from funciones
 select * from peliculas
 */
 /*A*/
-select count(*) from funciones
+select count(*) as 'Cantidad de Funciones de sucursal de La Plata' from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 where sucursales.Localidad = 'La plata';
