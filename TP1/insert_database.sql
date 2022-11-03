@@ -267,26 +267,26 @@ inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 where sucursales.Localidad = 'La plata';
 /*B*/
-select peliculas.Nombre from funciones
+select peliculas.Nombre as 'Películas en cartelera, sucursal de Córdoba, 24 de octubre' from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where sucursales.Localidad = 'Córdoba' AND funciones.Fecha = '2022-10-24';
-/*C*/
-select funciones.Horario from funciones
+/*C Averiguar si con "horarios disponibles" se refieren a filtrar tambien por funciones con butacas libres, por ejemplo, en la realidad no seria una funcion disponible si ya no hay butacas libres*/
+select funciones.Horario as 'Horarios disponibles para ver Argentina, 1985 el dia 24 de octubre en Rosario' from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where sucursales.Localidad = 'Rosario' AND funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985';
 /*D*/
-select funciones.Horario as horario, sucursales.Localidad as sucursal from funciones
+select funciones.Horario as 'Horarios disponibles para ver Argentina, 1985 el dia 24 de octubre', sucursales.Localidad as Sucursal from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
 where funciones.Fecha = '2022-10-24' AND peliculas.Nombre = 'Argentina, 1985'
 order by funciones.Horario;
 /*E*/
-select distinct peliculas.Nombre as pelicula, funciones.Fecha, funciones.Horario from funciones
+select distinct peliculas.Nombre as 'Peliculas de ciencia ficción en Rosario', funciones.Fecha, funciones.Horario from funciones
 inner join salas on salas.Id = funciones.Id_Sala
 inner join sucursales on sucursales.Id = salas.Id_Sucursal
 inner join peliculas on peliculas.Id = funciones.Id_Pelicula
