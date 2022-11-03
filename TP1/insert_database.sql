@@ -319,8 +319,13 @@ where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre
   inner join compras on (compras.Id_Funcion= funciones.Id AND compras.Id_Butaca = butacas.Id)
   where sucursales.Localidad='Córdoba' AND funciones.Id = 16 AND peliculas.Nombre= 'Argentina, 1985'
 )
-/*H*/
-
+/*H
+aca hice un select para conseguir los ids de las peliculas de todas las funciones, luego consigo la cantidad de peliculas por genero y el genero 
+usando esos ids que consegui antes*/
+select peliculas.Genero, COUNT(peliculas.Genero) as 'Cantidad de peliculas' 
+from peliculas 
+where peliculas.Id in (select distinct Id_Pelicula from funciones)
+group by peliculas.Genero
 /*
  * 
  * 5. Suponga que, una vez creada la base de datos, se pide hacer una pequeña modificación para
