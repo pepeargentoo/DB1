@@ -4,7 +4,7 @@
 a. Las 3 sucursales existentes actualmente.
 b. Al menos 3 salas por sucursal.
 c. Al menos 20 butacas por sala.
-d. Al menos 5 pelı́culas (una de ellas es Argentina, 1985, y otra de ellas es de género ciencia
+d. Al menos 5 peli´culas (una de ellas es Argentina, 1985, y otra de ellas es de género ciencia
 ficción).
 e. Al menos 5 funciones (algunas de ellas deben ocurrir entre el 24 y 
 el 31 de octubre de
@@ -242,14 +242,13 @@ insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','1
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',6,1);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',7,1);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',9,1);
-insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',10,1);
-insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',11,1);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',10,2);
+insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',11,3);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',4,3);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',5,3);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',6,3);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',7,3);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',9,3);
-insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',10,3);
 insert into funciones(Fecha,Horario,Id_Sala,Id_Pelicula) values ('2022-10-24','16:00:00',11,3);
 insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (3.10,12345678,1,1);
 insert into compras(Precio,DNI,Id_Funcion,Id_Butaca) values (4.10,1245678,2,2);
@@ -329,10 +328,10 @@ group by peliculas.Genero
 /*
  * 
  * 5. Suponga que, una vez creada la base de datos, se pide hacer una pequeña modificación para
-poder guardar información respecto al precio de las entradas. Determine qué alteraciones serı́a
+poder guardar información respecto al precio de las entradas. Determine qué alteraciones seri´a
 conveniente realizar en las tablas en los siguientes casos, justificando la respuesta:
 a. El precio de la entrada depende únicamente de la sucursal.
-b. El precio de la entrada depende únicamente de la pelı́cula.
+b. El precio de la entrada depende únicamente de la peli´cula.
 c. El preico de la entrada depende únicamente de la ubicación de la butaca.
  * https://estradawebgroup.com/Post/-Como-agregar-una-columna-a-una-tabla-en-SQL-/4166
  * */
@@ -361,18 +360,22 @@ ALTER TABLE butacas DROP COLUMN precio;
 ALTER TABLE peliculas ADD Precio REAL;
 /*UPDATE PELICULAS PRECIO, CREATE RECORDS :)
  * */
-select sum(peliculas.Precio) as recuadacion from funciones
+
+
+select peliculas.Precio,(select count(*) from compras INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+inner join peliculas on peliculas.id = funciones.Id_Pelicula where Id_Funcion = 16) as recuadacion ,peliculas.Nombre, funciones.ID from funciones
 inner join peliculas on peliculas.id = funciones.id_pelicula;
 
-/*Determine el promedio recaudado por función para cada pelı́cula. Es decir, si la pelı́cula
+select * from funciones
+
+/*Determine el promedio recaudado por función para cada peli´cula. Es decir, si la peli´cula
 Argentina, 1985 tuvo dos funciones, y en una recaudó 1000 pesos, y en la otra recaudó
-3000 pesos, el promedio recaudado por función para esta pelı́cula es 2000 pesos.
+3000 pesos, el promedio recaudado por función para esta peli´cula es 2000 pesos.
  * */
 select avg(peliculas.Precio)
 from funciones
 inner join peliculas on peliculas.id = funciones.id_pelicula;
 
-
-
-
-
+*/
+select * from peliculas
+update peliculas set Precio = 225 where ID = 5
