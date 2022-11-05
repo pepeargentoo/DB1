@@ -424,6 +424,10 @@ WHERE (CAST(funciones_cantidad.cantidad AS float)/CAST(salas.Cant_Butacas AS flo
 
 /*
 D
-PENDIENTE
+Revisar
 */
+select funcion,pelicula,recaudacion from funciones_recaudacion where funciones_recaudacion.recaudacion in ( 
+select MAX(funciones_recaudacion.recaudacion) as 'recaudacion'
+from funciones_recaudacion
+group by funciones_recaudacion.pelicula)
 
