@@ -354,13 +354,34 @@ ALTER TABLE peliculas DROP COLUMN precio;
 ALTER TABLE butacas ADD Precio REAL;
 select * from butacas;
 
-/*6)
- *PRECIO POR PELICULA */
-ALTER TABLE butacas DROP COLUMN precio;
-ALTER TABLE peliculas ADD Precio REAL;
-/*UPDATE PELICULAS PRECIO, CREATE RECORDS :)
- * */
+/*6-A*/
 
+ALTER TABLE butacas DROP COLUMN precio;
+ALTER TABLE peliculas ADD precio REAL;
+ 
+update peliculas set precio = 100 where id=1
+update peliculas set precio = 60 where id=2
+update peliculas set precio = 600 where id=3
+update peliculas set precio = 150 where id=4
+update peliculas set precio = 5 where id=5
+
+create view funciones_cantidad AS (
+	SELECT Id_Funcion as funcion, COUNT(*) as Cantidad
+	from compras 
+	INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+	inner join peliculas on peliculas.id = funciones.Id_Pelicula
+	GROUP BY Id_Funcion
+)
+
+select DISTINCT  
+funciones.id as funcion,
+peliculas.precio*funciones_cantidad.cantidad  as recaudacion
+from compras 
+INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+INNER JOIN peliculas on peliculas.id = funciones.Id_Pelicula 
+INNER JOIN funciones_cantidad on funciones.id = funciones_cantidad.funcion
+
+/*B*/
 
 select peliculas.Precio,(select count(*) from compras INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
 inner join peliculas on peliculas.id = funciones.Id_Pelicula where Id_Funcion = 16) as recuadacion ,peliculas.Nombre, funciones.ID from funciones
