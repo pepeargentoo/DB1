@@ -354,28 +354,71 @@ ALTER TABLE peliculas DROP COLUMN precio;
 ALTER TABLE butacas ADD Precio REAL;
 select * from butacas;
 
+
 /*6)
  *PRECIO POR PELICULA */
 ALTER TABLE butacas DROP COLUMN precio;
-ALTER TABLE peliculas ADD Precio REAL;
-/*UPDATE PELICULAS PRECIO, CREATE RECORDS :)
- * */
+ALTER TABLE peliculas ADD precio REAL;
 
+update peliculas set precio = 100 where id=1
+update peliculas set precio = 60 where id=2
+update peliculas set precio = 600 where id=3
+update peliculas set precio = 150 where id=4
+update peliculas set precio = 5 where id=5
+/*A*/
 
-select peliculas.Precio,(select count(*) from compras INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
-inner join peliculas on peliculas.id = funciones.Id_Pelicula where Id_Funcion = 16) as recuadacion ,peliculas.Nombre, funciones.ID from funciones
-inner join peliculas on peliculas.id = funciones.id_pelicula;
+create view funciones_cantidad AS (
+	SELECT Id_Funcion as funcion, COUNT(*) as Cantidad
+	from compras 
+	INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+	inner join peliculas on peliculas.id = funciones.Id_Pelicula
+	GROUP BY Id_Funcion
+)
 
-select * from funciones
+select DISTINCT funciones.id as funcion,
+(peliculas.precio*funciones_cantidad.cantidad) as recaudacion
+from compras 
+INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+INNER JOIN peliculas on peliculas.id = funciones.Id_Pelicula 
+INNER JOIN funciones_cantidad on funciones.id = funciones_cantidad.funcion
 
-/*Determine el promedio recaudado por función para cada peli´cula. Es decir, si la peli´cula
-Argentina, 1985 tuvo dos funciones, y en una recaudó 1000 pesos, y en la otra recaudó
-3000 pesos, el promedio recaudado por función para esta peli´cula es 2000 pesos.
- * */
-select avg(peliculas.Precio)
-from funciones
-inner join peliculas on peliculas.id = funciones.id_pelicula;
-
+/*B
+  Determine el promedio recaudado por función para cada pelicula. 
+  Es decir, si la pelicula Argentina, 1985 tuvo dos funciones, 
+  y en una recaudó 1000 pesos, y en la otra recaudó 3000 pesos, 
+  el promedio recaudado por función para esta pelicula es 2000 pesos.
+  REVISAR
 */
-select * from peliculas
-update peliculas set Precio = 225 where ID = 5
+select  
+DISTINCT 
+(funciones_cantidad.cantidad)  as cantidad
+from compras 
+INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+INNER JOIN peliculas on peliculas.id = funciones.Id_Pelicula 
+INNER JOIN funciones_cantidad on funciones.id = funciones_cantidad.funcion
+/*
+C: 
+*/
+select  
+DISTINCT 
+sucursales.Localidad as sucursal, 
+funciones.id as funcion,
+CONCAT((CAST(funciones_cantidad.cantidad AS float)/CAST(salas.Cant_Butacas AS float))*100,'%')
+as vendidas,
+FORMAT (funciones.Fecha,'dd/MM/yyyy') as dia, 
+funciones.Horario  as hora ,
+peliculas.Nombre as pelicula
+from compras 
+INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
+INNER JOIN peliculas on peliculas.id = funciones.Id_Pelicula 
+INNER JOIN funciones_cantidad on funciones.id = funciones_cantidad.funcion
+INNER JOIN butacas on compras.Id_Butaca = butacas.id
+INNER JOIN salas on salas.Id = butacas.Id_Salas
+INNER JOIN sucursales on sucursales.Id = salas.Id_Sucursal 
+WHERE (CAST(funciones_cantidad.cantidad AS float)/CAST(salas.Cant_Butacas AS float))*100 < 50
+
+/*
+D
+PENDIENTE
+*/
+
