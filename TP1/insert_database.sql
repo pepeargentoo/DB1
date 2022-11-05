@@ -389,13 +389,18 @@ INNER JOIN funciones_cantidad on funciones.id = funciones_cantidad.funcion
   el promedio recaudado por función para esta pelicula es 2000 pesos.
   REVISAR
 */
-select  
-DISTINCT 
-(funciones_cantidad.cantidad)  as cantidad
+create view funciones_recaudacion as (
+select DISTINCT funciones.id as funcion,
+(peliculas.precio*funciones_cantidad.cantidad) as recaudacion, peliculas.Nombre as pelicula
 from compras 
 INNER JOIN funciones on  compras.Id_Funcion = funciones.ID
 INNER JOIN peliculas on peliculas.id = funciones.Id_Pelicula 
 INNER JOIN funciones_cantidad on funciones.id = funciones_cantidad.funcion
+)
+select SUM(funciones_recaudacion.recaudacion)/COUNT(funciones_recaudacion.pelicula) as 'Promedio recaudado por función',
+funciones_recaudacion.pelicula 
+from funciones_recaudacion
+group by funciones_recaudacion.pelicula
 /*
 C: 
 */
@@ -419,6 +424,10 @@ WHERE (CAST(funciones_cantidad.cantidad AS float)/CAST(salas.Cant_Butacas AS flo
 
 /*
 D
-PENDIENTE
+Revisar
 */
+select funcion,pelicula,recaudacion from funciones_recaudacion where funciones_recaudacion.recaudacion in ( 
+select MAX(funciones_recaudacion.recaudacion) as 'recaudacion'
+from funciones_recaudacion
+group by funciones_recaudacion.pelicula)
 
