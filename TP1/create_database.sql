@@ -1,8 +1,13 @@
-/*
- * this script is used for create the database
+/** 
+This script is used to create the database.
+On the second line we select the database so we can create the tables in it. 
  * */
 create DATABASE webapp;
 use webapp;
+
+/**
+On the following scripts we create tables with their specific atributes.
+**/
 
 CREATE TABLE sucursales(
 	Id INT PRIMARY KEY IDENTITY(1,1),
